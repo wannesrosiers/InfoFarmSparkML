@@ -11,7 +11,7 @@ setGeneric("predict_NaiveBayes",function(data, scales, model, logging=FALSE){sta
 #' @export
 predict_NaiveBayes <- function(data, scales, model, logging=FALSE){
   numericVars <- .getNumericVars(data, names(model))
-  numpart <- numPartitions(toRDD(data))
+  numpart <- SparkR:::numPartitions(SparkR:::toRDD(data))
   if(logging) print("Creating categorical columns")
   data <- .numToCat(data, numericVars, scales)
   data <- repartition(data, numpart)
@@ -48,7 +48,7 @@ NaiveBayes <- function(data, vars, nrOfNumericCategories = 100){
   types <- as.vector(t(as.data.frame(dtypes(data)))[,2])
   numericVars <- base::intersect(vars,names(data)[which(types=="int"|types=="double")])
   
-  numpart   <- numPartitions(toRDD(data))
+  numpart   <- SparkR:::numPartitions(SparkR:::toRDD(data))
   modeldata <- .numToCat(data, numericVars)
   scales <- modeldata[["scales"]]
   model <- .NaiveBayesModel(modeldata[["data"]], vars, nrOfNumericCategories)

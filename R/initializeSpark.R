@@ -10,7 +10,7 @@ setGeneric("initializeSpark",function(sparkDirectory,jarPath,size){standardGener
 #' 
 #' @export
 initializeSpark <- function(sparkDirectory,size){
-  Sys.setenv('SPARKR_SUBMIT_ARGS'='"--packages" "com.databricks:spark-csv_2.10:1.0.3" "sparkr-shell"')
+  Sys.setenv('SPARKR_SUBMIT_ARGS'='"--packages" "com.databricks:spark-csv_2.11:1.2.0" "sparkr-shell"')
   
   # Set SPARK_HOME
   Sys.setenv(SPARK_HOME=sparkDirectory)

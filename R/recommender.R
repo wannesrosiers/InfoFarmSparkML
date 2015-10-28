@@ -21,7 +21,7 @@ setGeneric("recommenderModel",function(data, key, value, supportThreshold, loggi
 #' @export
 recommenderModel <- function(data, key, value, supportThreshold, logging=FALSE){
   cache(data)
-  numpart <- numPartitions(toRDD(data))
+  numpart <- SparkR:::numPartitions(SparkR:::toRDD(data))
   ## FILTER FOLLOWED_USER WITH ENOUGH OCCURENCES
   if(logging) print("FILTER VALUE WITH ENOUGH OCCURENCES...")
   data    <- .singleSupport(data, supportThreshold, value, key, logging)
